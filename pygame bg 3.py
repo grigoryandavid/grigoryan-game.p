@@ -44,7 +44,7 @@ pygame.init()
 
 font = pygame.font.SysFont(None, 25)
 
-
+# -- the message to screen functions renders and draws text.
 def message_to_screen(
     msg,
     color,
@@ -59,7 +59,8 @@ def message_to_screen(
     screen.blit(screen_text, [x, y])
 
 
-
+#-- this is the class for the green chest in the game, the random number
+   # generation is done in the maze class
 class Chest:
 
     def __init__ (self, color, x_coord, y_coord):
@@ -80,7 +81,7 @@ class Chest:
 
 
     
-    
+    # this class is called two times for the different levels and also does collision detection.
 
 
 class Maze:
@@ -134,6 +135,8 @@ class Maze:
         for chest in self.chest:
             chest.detect(player_rect)
 
+# a for loop is used to draw a the walls a the system 
+
 
     def hyperoop_collision(self,player_rect):
         for hl in self.hyperloops:
@@ -169,7 +172,7 @@ class Maze:
                 return 1
         return 0
 
-
+# draws the player and defines the movement 
 class Player:
 
     def __init__(
@@ -197,7 +200,8 @@ class Player:
         self.x += x_speed
         self.y += y_speed
 
-
+# -- this class creates the hyperloop system(draws) and also manages the logic
+# -- the draw function is called in the maze class as the orantation chages as the levels change 
 class Hyperloop:
 
     def __init__(
@@ -231,11 +235,11 @@ class Hyperloop:
                           (self.Out_coord[1] + self.Out_speed[1]) % H]
 
     def detect(self, player_rect):
-        if self.In_rect and self.In_rect.colliderect(player_rect):
+        if self.In_rect and self.In_rect.colliderect(player_rect): # detects player colision
             return self.Out_coord
         return None
 
-
+# this class is called with the mazes to display the level and lives left 
 class Game_info:
 
     def __init__(
@@ -257,7 +261,7 @@ class Game_info:
         message_to_screen(level_text, self.color, x, y)
         message_to_screen(lifes_text, self.color, x, y + 20)
 
-
+## -- this function is called to display the messages for the different outcomes in the game 
 def mid_game(state):
     if state == 'pass_level':
         color = WHITE
@@ -296,7 +300,7 @@ def gameLoop(level=1, lifes=3):
     player1 = Player(
         RED,
         20,
-        20,
+        40,
         player_size,
         player_size,
         lifes,
@@ -344,7 +348,7 @@ def gameLoop(level=1, lifes=3):
         if a:
             player1.x = a[0]
             player1.y = a[1]
-
+        # returns the mouse position for testing 
         pos = pygame.mouse.get_pos()
         print(pos)
 
